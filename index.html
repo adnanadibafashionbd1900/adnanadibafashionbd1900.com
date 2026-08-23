@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADNAN ADIBA FASHION BD</title>
+<meta name="description" content="ADNAN ADIBA FASHION BD - Fashion Collection">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,"Noto Sans Bengali",sans-serif;background:#faf7f8;color:#222;line-height:1.6}
+header{background:#111;color:#fff;position:sticky;top:0;z-index:20}
+.nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px}
+.logo{font-size:21px;font-weight:800;letter-spacing:.5px}
+.logo span{color:#e9a3b1}
+nav{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;font-size:14px}
+nav a:hover{color:#e9a3b1}
+.hero{background:linear-gradient(135deg,#241b20,#8c4c61);color:#fff;padding:80px 20px;text-align:center}
+.hero h1{font-size:clamp(32px,6vw,62px);margin-bottom:10px}
+.hero p{font-size:18px;margin-bottom:25px}
+.btn{display:inline-block;background:#fff;color:#7b4054;padding:12px 22px;border-radius:30px;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
+.btn.dark{background:#111;color:#fff}
+.container{max-width:1200px;margin:auto;padding:50px 20px}
+.title{text-align:center;margin-bottom:28px}
+.title h2{font-size:30px}
+.title p{color:#777}
+.search{display:flex;max-width:600px;margin:0 auto 28px}
+.search input{flex:1;padding:14px;border:1px solid #ddd;border-radius:30px 0 0 30px;font-size:16px}
+.search button{border:0;background:#111;color:#fff;padding:0 22px;border-radius:0 30px 30px 0;cursor:pointer}
+.filters{text-align:center;margin-bottom:25px}
+.filters button{margin:5px;padding:9px 16px;border:1px solid #ddd;background:#fff;border-radius:20px;cursor:pointer}
+.filters button.active{background:#111;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 5px 20px rgba(0,0,0,.07)}
+.pic{height:260px;background:#eee;display:flex;align-items:center;justify-content:center;color:#999;font-size:18px}
+.pic img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:16px}
+.card h3{font-size:18px;margin-bottom:5px}
+.price{font-size:19px;font-weight:bold;color:#8c4c61;margin:8px 0 12px}
+.card .btn{width:100%;text-align:center;background:#111;color:#fff}
+.offer{background:#f1dfe4}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.contact-box{background:#fff;padding:28px;border-radius:15px}
+.contact a{color:#8c4c61;font-weight:bold;text-decoration:none}
+footer{background:#111;color:#ddd;text-align:center;padding:30px 20px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:50;padding:20px}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modal-box{background:#fff;max-width:520px;width:100%;border-radius:15px;padding:25px;position:relative;max-height:90vh;overflow:auto}
+.close{position:absolute;right:15px;top:10px;border:0;background:none;font-size:28px;cursor:pointer}
+.form input,.form textarea,.form select{width:100%;padding:12px;margin:7px 0;border:1px solid #ddd;border-radius:8px}
+.form textarea{min-height:90px}
+.empty{text-align:center;color:#777;grid-column:1/-1;padding:30px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}nav{gap:10px}.contact{grid-template-columns:1fr}}
+@media(max-width:560px){.nav{flex-direction:column;gap:10px}.grid{grid-template-columns:1fr}.pic{height:300px}.hero{padding:55px 18px}.hero h1{font-size:38px}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="nav">
+<div class="logo">ADNAN ADIBA <span>FASHION BD</span></div>
+<nav>
+<a href="#home">Home</a><a href="#women">Women</a><a href="#men">Men</a>
+<a href="#new">New Arrivals</a><a href="#offer">Offers</a><a href="#contact">Contact</a>
+</nav>
+</div>
+</header>
+
+<section class="hero" id="home">
+<h1>ADNAN ADIBA FASHION BD</h1>
+<p>আপনার পছন্দের ফ্যাশন, আপনার স্টাইলে ✨</p>
+<a class="btn" href="#products">Shop Now</a>
+</section>
+
+<section class="container" id="products">
+<div class="title"><h2>🛍️ Our Collection</h2><p>পছন্দের পণ্য খুঁজে নিন</p></div>
+<div class="search"><input id="search" type="search" placeholder="🔎 Product Search..."><button onclick="render()">Search</button></div>
+<div class="filters">
+<button class="active" onclick="setFilter('all',this)">All</button>
+<button onclick="setFilter('women',this)">👗 Women</button>
+<button onclick="setFilter('men',this)">👔 Men</button>
+<button onclick="setFilter('new',this)">🆕 New Arrivals</button>
+<button onclick="setFilter('offer',this)">🔥 Special Offer</button>
+</div>
+<div class="grid" id="productGrid"></div>
+</section>
+
+<section class="container offer" id="offer">
+<div class="title"><h2>🔥 Special Offer</h2><p>সীমিত সময়ের জন্য বিশেষ অফার</p></div>
+<div style="text-align:center"><a class="btn dark" href="#products" onclick="setTimeout(()=>{setFilter('offer',document.querySelector('.filters button:nth-child(5)'))},50)">View Offers</a></div>
+</section>
+
+<section class="container" id="contact">
+<div class="title"><h2>📞 Contact & Order</h2><p>অর্ডার বা যেকোনো তথ্যের জন্য যোগাযোগ করুন</p></div>
+<div class="contact">
+<div class="contact-box">
+<h3>💬 WhatsApp Order</h3><p style="margin:10px 0">WhatsApp: <a href="https://wa.me/8801955686402" target="_blank">01955686402</a></p>
+<a class="btn dark" href="https://wa.me/8801955686402" target="_blank">WhatsApp করুন</a>
+</div>
+<div class="contact-box">
+<h3>📘 Facebook</h3><p style="margin:10px 0">আমাদের Facebook Page-এ যোগাযোগ করুন।</p>
+<a class="btn dark" href="https://www.facebook.com/share/1HBqkjkr5Y/" target="_blank">Facebook Page</a>
+</div>
+</div>
+</section>
+
+<footer>
+<strong>ADNAN ADIBA FASHION BD</strong><br>
+© 2026 All Rights Reserved.
+</footer>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<button class="close" onclick="closeModal()">×</button>
+<h2 id="modalTitle">Order</h2>
+<p id="modalPrice"></p>
+<form class="form" onsubmit="sendOrder(event)">
+<input id="customerName" required placeholder="আপনার নাম">
+<input id="customerPhone" required placeholder="মোবাইল নম্বর">
+<textarea id="customerAddress" required placeholder="সম্পূর্ণ ঠিকানা"></textarea>
+<select id="size"><option value="">Size (যদি প্রযোজ্য)</option><option>Free Size</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select>
+<input id="quantity" type="number" min="1" value="1" required placeholder="Quantity">
+<button class="btn dark" style="width:100%;margin-top:10px">📦 WhatsApp-এ অর্ডার পাঠান</button>
+</form>
+</div>
+</div>
+
+<script>
+const WHATSAPP="8801955686402";
+const products=[
+{name:"Elegant Fashion Dress",price:1350,cat:"women",new:true,img:""},
+{name:"Premium Women's Collection",price:1850,cat:"women",new:true,img:""},
+{name:"Stylish Women's Wear",price:1120,cat:"women",new:false,img:""},
+{name:"Classic Men's Fashion",price:1430,cat:"men",new:true,img:""},
+{name:"Men's Premium Collection",price:1050,cat:"men",new:false,img:""},
+{name:"Fashion Special Deal",price:870,cat:"women",offer:true,img:""},
+{name:"Beautiful New Arrival",price:950,cat:"women",new:true,img:""}
+];
+let filter="all", selected=null;
+function setFilter(f,el){filter=f;document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));if(el)el.classList.add("active");render();}
+function render(){
+const q=document.getElementById("search").value.toLowerCase().trim();
+const list=products.filter(p=>{
+const matchesFilter=filter==="all"||(filter==="new"&&p.new)||(filter==="offer"&&p.offer)||p.cat===filter;
+return matchesFilter && p.name.toLowerCase().includes(q);
+});
+const grid=document.getElementById("productGrid");
+grid.innerHTML=list.length?list.map((p,i)=>`
+<div class="card">
+<div class="pic">${p.img?`<img src="${p.img}" alt="${p.name}">`:"📷 Product Image"}</div>
+<div class="card-body"><h3>${p.name}</h3><div class="price">৳ ${p.price}</div>
+<button class="btn" onclick="openOrder(${products.indexOf(p)})">🛒 Order Now</button></div>
+</div>`).join(""):`<div class="empty">কোনো পণ্য পাওয়া যায়নি।</div>`;
+}
+function openOrder(i){selected=products[i];document.getElementById("modalTitle").textContent=selected.name;document.getElementById("modalPrice").textContent="Price: ৳ "+selected.price;document.getElementById("modal").classList.add("show");}
+function closeModal(){document.getElementById("modal").classList.remove("show")}
+function sendOrder(e){
+e.preventDefault();
+const name=document.getElementById("customerName").value;
+const phone=document.getElementById("customerPhone").value;
+const address=document.getElementById("customerAddress").value;
+const size=document.getElementById("size").value||"N/A";
+const qty=document.getElementById("quantity").value;
+const text=`আসসালামু আলাইকুম, ADNAN ADIBA FASHION BD থেকে অর্ডার করতে চাই।%0A%0Aপণ্য: ${selected.name}%0Aদাম: ৳${selected.price}%0Aপরিমাণ: ${qty}%0ASize: ${size}%0Aনাম: ${name}%0Aমোবাইল: ${phone}%0Aঠিকানা: ${address}`;
+window.open(`https://wa.me/${WHATSAPP}?text=${text}`,"_blank");
+}
+render();
+</script>
+</body>
+</html>
